@@ -181,7 +181,8 @@ if [[ ! $name =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then exit 0; fi
 action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
 
 if [ "$action" = "add" ]; then
-    echo -e 'discoverable off\nexit\n' | bluetoothctl
+    echo -e 'discoverable off\nexit\n' | sudo bluetoothctl
+    #PATH TO SH FILE with Random
     ogg123 -q /usr/local/share/sounds/WoodenBeaver/stereo/device-added.ogg
     # disconnect wifi to prevent dropouts
     # ifconfig wlan0 down &
@@ -191,7 +192,7 @@ if [ "$action" = "remove" ]; then
     ogg123 -q /usr/local/share/sounds/WoodenBeaver/stereo/device-removed.ogg
     # reenable wifi
     # ifconfig wlan0 up &
-    echo -e 'discoverable on\nexit\n' | bluetoothctl
+    echo -e 'discoverable on\nexit\n' | sudo bluetoothctl
 fi
 EOF
 chmod 755 /opt/local/bin/bluetooth-udev
