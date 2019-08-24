@@ -1,12 +1,17 @@
-#!/bin/sh
+#!/bin/bash -e
 
-echo "Installing Spotify Connect (spotifyd)"
+SPOTIFYD_VERSION=0.2.5
+SPOTIFYD_BUILD=2019-02-25
 
-wget https://github.com/Spotifyd/spotifyd/releases/download/v0.2.5/spotifyd-2019-02-25-armv6.zip
-unzip spotifyd-2019-02-25-armv6.zip
-rm spotifyd-2019-02-25-armv6.zip
-mkdir -p /opt/local/bin
-mv spotifyd /opt/local/bin
+echo -n "Do you want to install Spotify Connect (spotifyd v${SPOTIFYD_VERSION})? [y/N] "
+read REPLY
+if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then exit 0; fi
+
+wget https://github.com/Spotifyd/spotifyd/releases/download/v${SPOTIFYD_VERSION}/spotifyd-${SPOTIFYD_BUILD}-armv6.zip
+unzip spotifyd-${SPOTIFYD_BUILD}-armv6.zip
+rm spotifyd-${SPOTIFYD_BUILD}-armv6.zip
+mkdir -p /usr/local/bin
+mv spotifyd /usr/local/bin
 
 PRETTY_HOSTNAME=$(hostnamectl status --pretty)
 PRETTY_HOSTNAME=${PRETTY_HOSTNAME:-$(hostname)}
@@ -32,7 +37,7 @@ After=network-online.target
 [Service]
 Type=idle
 User=pi
-ExecStart=/opt/local/bin/spotifyd -c /etc/spotifyd.conf --no-daemon
+ExecStart=/usr/local/bin/spotifyd -c /etc/spotifyd.conf --no-daemon
 Restart=always
 RestartSec=10
 StartLimitInterval=30
