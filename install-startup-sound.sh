@@ -4,9 +4,9 @@ echo -n "Do you want to install Startup sound? [y/N] "
 read REPLY
 if [[ ! "$REPLY" =~ ^(yes|y|Y)$ ]]; then exit 0; fi
 
-mkdir -p /usr/local/share/sounds/WoodenBeaver/stereo
-if [ ! -f /usr/local/share/sounds/WoodenBeaver/stereo/device-added.ogg ]; then
-    curl -so /usr/local/share/sounds/WoodenBeaver/stereo/device-added.ogg https://raw.githubusercontent.com/madsrh/WoodenBeaver/master/WoodenBeaver/stereo/device-added.ogg
+mkdir -p /usr/local/share/sounds/win95/sound
+if [ ! -f /usr/local/share/sounds/win95/sound/startup.ogg ]; then
+    curl -so /usr/local/share/sounds/win95/sound/startup.ogg https://raw.githubusercontent.com/NivxB/rpi-audio-receiver/master/sound/win95.ogg
 fi
 if [ ! -f /usr/local/share/sounds/WoodenBeaver/stereo/device-removed.ogg ]; then
     curl -so /usr/local/share/sounds/WoodenBeaver/stereo/device-removed.ogg https://raw.githubusercontent.com/madsrh/WoodenBeaver/master/WoodenBeaver/stereo/device-removed.ogg
@@ -19,7 +19,7 @@ After=multi-user.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/ogg123 -q /usr/local/share/sounds/WoodenBeaver/stereo/device-added.ogg
+ExecStart=/usr/bin/ogg123 -q /usr/local/share/sounds/win95/sound/startup.ogg
 
 [Install]
 WantedBy=multi-user.target
